@@ -1,176 +1,275 @@
-<?php include "header.php"; ?>
-<?php include "subscriber/includes/test.php"; ?>
-
-<!-- Navigation -->
-<?php include "../subscriber/includes/navigation.php"; ?>
-
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    include './includes/db.php';
+include 'header.php';
 
-    // Prepare SQL statement for inserting
-    $sql = "INSERT INTO `homepage` (
-                `id`, `banner_image1`, `banner_image2`, `banner_image3`, 
-                `paragraph_title1`, `paragraph_content1`, 
-                `paragraph_title2`, `paragraph_content2`, 
-                `paragraph_title3`, `paragraph_content3`, 
-                `faq_title1`, `faq_content1`, 
-                `faq_title2`, `faq_content2`, 
-                `faq_title3`, `faq_content3`, 
-                `faq_title4`, `faq_content4`, 
-                `service1`, `service2`, `service3`, 
-                `service4`, `service5`, `service6`, 
-                `service_title1`, `service_title2`, `service_title3`, 
-                `service_title4`, `service_title5`, `service_title6`
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+?>
+<?php
+include '../config.php';
+$id = '2';
+$stmt = $conn->prepare("SELECT * FROM pages WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
 
-    // Prepare and bind parameters
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssssssssssssssssssssssssssss", 
-                        $_POST['id'],
-                        $_POST['banner_image1'],
-                        $_POST['banner_image2'],
-                        $_POST['banner_image3'],
-                        $_POST['paragraph_title1'],
-                        $_POST['paragraph_content1'],
-                        $_POST['paragraph_title2'],
-                        $_POST['paragraph_content2'],
-                        $_POST['paragraph_title3'],
-                        $_POST['paragraph_content3'],
-                        $_POST['faq_title1'],
-                        $_POST['faq_content1'],
-                        $_POST['faq_title2'],
-                        $_POST['faq_content2'],
-                        $_POST['faq_title3'],
-                        $_POST['faq_content3'],
-                        $_POST['faq_title4'],
-                        $_POST['faq_content4'],
-                        $_POST['service1'],
-                        $_POST['service2'],
-                        $_POST['service3'],
-                        $_POST['service4'],
-                        $_POST['service5'],
-                        $_POST['service6'],
-                        $_POST['service_title1'],
-                        $_POST['service_title2'],
-                        $_POST['service_title3'],
-                        $_POST['service_title4'],
-                        $_POST['service_title5'],
-                        $_POST['service_title6']);
+if ($result->num_rows === 1) {
+$row = $result->fetch_assoc();
+$jsonData = json_decode($row['slide_content'], true);
 
-    // Execute the statement
-    if ($stmt->execute()) {
-        echo "Record inserted successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-
-    // Close statement and connection
-    $stmt->close();
-    $conn->close();
+if ($jsonData === null) {
+    die("Error decoding JSON data");
+}
+} else {
+    die("No record found with id = $id");
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Insert Homepage Entry</title>
-</head>
-<body>
-    <h2>Insert Homepage Entry</h2>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+<?php
+// Assuming you have already established a connection to the database
+// $conn is your database connection
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id = '2';
+    
+    // Collecting form data
+    $banner_images = $_POST['banner_images'];
+    $paragraphs = $_POST['paragraphs'];
+    $services = $_POST['services'];
+    $faqs = $_POST['faqs'];
+
+    // Prepare JSON data
+    $slide_content = json_encode([
+        'banner_images' => $banner_images,
+        'paragraphs' => $paragraphs,
+        'services' => $services,
+        'faqs' => $faqs
+    ]);
+
+    // Update query
+    $query = "UPDATE `pages` SET `slide_content` = ? WHERE `id` = ?";
+    
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('si', $slide_content, $id);
+    
+    if ($stmt->execute()) {
+        echo "Update successful.";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+    
+    $stmt->close();
+}
+
+
+
+?>
+<html>
+    <head>
+        <style>
+            #content{
+                margin-top: 0%;
+            }
+            #content>form{
+ /* border : 2px solid black; */
+ padding: 0 12%;
+ overflow-x: 10%;
+            }
+            #content>form >input{
+ width: 100%;
+ height: 2rem;
+            }
+            #content>form>textarea{
+                width: 100%;
+                min-height: 5rem;
+                height: auto;
+            }
+            @media screen and (max-width: 768px){
+                #content{
+                margin-top: 30rem;
+            }
+            }
+        </style>
+    </head>
+  <body>
+  
+ <div id='content'>
+    <h1>Update Our Story Page from Here</h1>
+ <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
         <label for="id">ID:</label><br>
-        <input type="text" id="id" name="id" required><br><br>
+        <input type="text" id="id" name="id" value="2" required hidden><br>
         
-        <label for="banner_image1">Banner Image 1:</label><br>
-        <input type="text" id="banner_image1" name="banner_image1" required><br><br>
-        
-        <label for="banner_image2">Banner Image 2:</label><br>
-        <input type="text" id="banner_image2" name="banner_image2" required><br><br>
-        
-        <label for="banner_image3">Banner Image 3:</label><br>
-        <input type="text" id="banner_image3" name="banner_image3" required><br><br>
-        
-        <label for="paragraph_title1">Paragraph Title 1:</label><br>
-        <input type="text" id="paragraph_title1" name="paragraph_title1" required><br><br>
-        
-        <label for="paragraph_content1">Paragraph Content 1:</label><br>
-        <textarea id="paragraph_content1" name="paragraph_content1" rows="4" required></textarea><br><br>
-        
-        <label for="paragraph_title2">Paragraph Title 2:</label><br>
-        <input type="text" id="paragraph_title2" name="paragraph_title2" required><br><br>
-        
-        <label for="paragraph_content2">Paragraph Content 2:</label><br>
-        <textarea id="paragraph_content2" name="paragraph_content2" rows="4" required></textarea><br><br>
-        
-        <label for="paragraph_title3">Paragraph Title 3:</label><br>
-        <input type="text" id="paragraph_title3" name="paragraph_title3" required><br><br>
-        
-        <label for="paragraph_content3">Paragraph Content 3:</label><br>
-        <textarea id="paragraph_content3" name="paragraph_content3" rows="4" required></textarea><br><br>
-        
-        <label for="faq_title1">FAQ Title 1:</label><br>
-        <input type="text" id="faq_title1" name="faq_title1" required><br><br>
-        
-        <label for="faq_content1">FAQ Content 1:</label><br>
-        <textarea id="faq_content1" name="faq_content1" rows="4" required></textarea><br><br>
-        
-        <label for="faq_title2">FAQ Title 2:</label><br>
-        <input type="text" id="faq_title2" name="faq_title2" required><br><br>
-        
-        <label for="faq_content2">FAQ Content 2:</label><br>
-        <textarea id="faq_content2" name="faq_content2" rows="4" required></textarea><br><br>
-        
-        <label for="faq_title3">FAQ Title 3:</label><br>
-        <input type="text" id="faq_title3" name="faq_title3" required><br><br>
-        
-        <label for="faq_content3">FAQ Content 3:</label><br>
-        <textarea id="faq_content3" name="faq_content3" rows="4" required></textarea><br><br>
-        
-        <label for="faq_title4">FAQ Title 4:</label><br>
-        <input type="text" id="faq_title4" name="faq_title4" required><br><br>
-        
-        <label for="faq_content4">FAQ Content 4:</label><br>
-        <textarea id="faq_content4" name="faq_content4" rows="4" required></textarea><br><br>
-        
-        <label for="service1">Service 1:</label><br>
-        <textarea id="service1" name="service1" rows="2" required></textarea><br><br>
-        
-        <label for="service2">Service 2:</label><br>
-        <textarea id="service2" name="service2" rows="2" required></textarea><br><br>
-        
-        <label for="service3">Service 3:</label><br>
-        <textarea id="service3" name="service3" rows="2" required></textarea><br><br>
-        
-        <label for="service4">Service 4:</label><br>
-        <textarea id="service4" name="service4" rows="2" required></textarea><br><br>
-        
-        <label for="service5">Service 5:</label><br>
-        <textarea id="service5" name="service5" rows="2" required></textarea><br><br>
-        
-        <label for="service6">Service 6:</label><br>
-        <textarea id="service6" name="service6" rows="2" required></textarea><br><br>
-        
-        <label for="service_title1">Service Title 1:</label><br>
-        <input type="text" id="service_title1" name="service_title1" required><br><br>
-        
-        <label for="service_title2">Service Title 2:</label><br>
-        <input type="text" id="service_title2" name="service_title2" required><br><br>
-        
-        <label for="service_title3">Service Title 3:</label><br>
-        <input type="text" id="service_title3" name="service_title3" required><br><br>
-        
-        <label for="service_title4">Service Title 4:</label><br>
-        <input type="text" id="service_title4" name="service_title4" required><br><br>
-        
-        <label for="service_title5">Service Title 5:</label><br>
-        <input type="text" id="service_title5" name="service_title5" required><br><br>
-        
-        <label for="service_title6">Service Title 6:</label><br>
-        <input type="text" id="service_title6" name="service_title6" required><br><br>
-        
-        <input type="submit" value="Insert">
+   
+
+     
     </form>
-</body>
+
+
+    <div class="container mt-4">  
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active text-dark" id="banner-tab" data-toggle="tab" href="#banner" role="tab" aria-controls="banner" aria-selected="true">Banner Images</a>
+
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-dark" id="paragraph-tab" data-toggle="tab" href="#paragraph" role="tab" aria-controls="paragraph" aria-selected="false">Paragraph</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-dark" id="services-tab" data-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="false">Service</a>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link text-dark" id="faqs-tab" data-toggle="tab" href="#faqs" role="tab" aria-controls="faqs" aria-selected="false">FAQs</a>
+    </li>
+  </ul>
+  
+  <div class="tab-content mt-2" id="myTabContent">
+    <div class="tab-pane fade show active" id="banner" role="tabpanel" aria-labelledby="banner-tab">
+    <h2>Banner Images</h2>
+    
+    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" id="bannerTab" role="tablist">
+      <?php foreach ($jsonData['banner_images'] as $index => $banner) { ?>
+        <li class="nav-item">
+          <a class="nav-link text-dark <?php echo $index === 0 ? 'active' : ''; ?>" id="banner-tab-<?php echo $index; ?>" data-toggle="tab" href="#banner<?php echo $index; ?>" role="tab" aria-controls="banner<?php echo $index; ?>" aria-selected="<?php echo $index === 0 ? 'true' : 'false'; ?>">Banner <?php echo $index + 1; ?></a>
+        </li>
+      <?php } ?>
+    </ul>
+    
+    <!-- Tab panes -->
+    <div class="tab-content" id="bannerTabContent">
+      <?php foreach ($jsonData['banner_images'] as $index => $banner) { ?>
+        <div class="tab-pane fade <?php echo $index === 0 ? 'show active' : ''; ?>" id="banner<?php echo $index; ?>" role="tabpanel" aria-labelledby="banner-tab-<?php echo $index; ?>">
+          <h3>Banner Image <?php echo $index + 1; ?></h3>
+          <label for="banner_image_url<?php echo $index; ?>">Banner Image <?php echo $index + 1; ?> URL:</label><br>
+          <input type="text" id="banner_image_url<?php echo $index; ?>" name="banner_images[<?php echo $index; ?>][url]" value="<?php echo htmlspecialchars($banner['url']); ?>" required><br>
+          
+          <label for="banner_image_title<?php echo $index; ?>">Banner Image <?php echo $index + 1; ?> Title:</label><br>
+          <input type="text" id="banner_image_title<?php echo $index; ?>" name="banner_images[<?php echo $index; ?>][title]" value="<?php echo htmlspecialchars($banner['title']); ?>" required><br>
+          
+          <label for="banner_image_content<?php echo $index; ?>">Banner Image <?php echo $index + 1; ?> Content:</label><br>
+          <textarea id="banner_image_content<?php echo $index; ?>" name="banner_images[<?php echo $index; ?>][content]" rows="4"><?php echo htmlspecialchars($banner['content']); ?></textarea><br>
+          
+          <label for="banner_image_tag<?php echo $index; ?>">Banner Image <?php echo $index + 1; ?> Tags:</label><br>
+          <input type="text" id="banner_image_tag<?php echo $index; ?>" name="banner_images[<?php echo $index; ?>][tag]" value="<?php echo htmlspecialchars($banner['tag']); ?>" required><br>
+        </div>
+      <?php } ?>
+    </div>
+    
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+  </form>
+    </div>
+    
+       <!-- Paragraphs Tab -->
+    <div class="tab-pane fade" class="tab-pane fade show active" id="paragraph" role="tabpanel" aria-labelledby="paragraph-tab">
+        <h2>Paragraphs</h2>
+        
+        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+            <!-- Nav tabs for Paragraphs -->
+            <ul class="nav nav-tabs" id="paragraphTab" role="tablist">
+                <?php foreach ($jsonData['paragraphs'] as $index => $paragraph) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark <?php echo $index === 0 ? 'active' : ''; ?>" id="paragraph-tab-<?php echo $index; ?>" data-toggle="tab" href="#paragraph<?php echo $index; ?>" role="tab" aria-controls="paragraph<?php echo $index; ?>" aria-selected="<?php echo $index === 0 ? 'true' : 'false'; ?>">Paragraph <?php echo $index + 1; ?></a>
+                    </li>
+                <?php } ?>
+            </ul>
+
+            <!-- Tab panes for Paragraphs -->
+            <div class="tab-content" id="paragraphTabContent">
+                <?php foreach ($jsonData['paragraphs'] as $index => $paragraph) { ?>
+                    <div class="tab-pane fade <?php echo $index === 0 ? 'show active' : ''; ?>" id="paragraph<?php echo $index; ?>" role="tabpanel" aria-labelledby="paragraph-tab-<?php echo $index; ?>">
+                        <h3>Paragraph <?php echo $index + 1; ?></h3>
+                        <div class="form-group">
+                            <label for="paragraph_title<?php echo $index; ?>">Title:</label>
+                            <input type="text" class="form-control" id="paragraph_title<?php echo $index; ?>" name="paragraphs[<?php echo $index; ?>][title]" value="<?php echo htmlspecialchars($paragraph['title']); ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="paragraph_content<?php echo $index; ?>">Content:</label>
+                            <textarea class="form-control" id="paragraph_content<?php echo $index; ?>" name="paragraphs[<?php echo $index; ?>][content]" rows="4" required><?php echo htmlspecialchars($paragraph['content']); ?></textarea>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        </form>
+    </div>
+
+    <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="services-tab">
+    <h2>Services</h2>
+    
+    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+        <!-- Nav tabs for Services -->
+        <ul class="nav nav-tabs" id="serviceTab" role="tablist">
+            <?php foreach ($jsonData['services'] as $index => $service) { ?>
+                <li class="nav-item">
+                    <a class="nav-link text-dark <?php echo $index === 0 ? 'active' : ''; ?>" id="service-tab-<?php echo $index; ?>" data-toggle="tab" href="#service<?php echo $index; ?>" role="tab" aria-controls="service<?php echo $index; ?>" aria-selected="<?php echo $index === 0 ? 'true' : 'false'; ?>">Service <?php echo $index + 1; ?></a>
+                </li>
+            <?php } ?>
+        </ul>
+
+        <!-- Tab panes for Services -->
+        <div class="tab-content" id="serviceTabContent">
+            <?php foreach ($jsonData['services'] as $index => $service) { ?>
+                <div class="tab-pane fade  <?php echo $index === 0 ? 'show active' : ''; ?>" id="service<?php echo $index; ?>" role="tabpanel" aria-labelledby="service-tab-<?php echo $index; ?>">
+                    <h3>Service <?php echo $index + 1; ?></h3>
+                    <div class="form-group">
+                        <label for="services_title<?php echo $index; ?>">Title:</label>
+                        <input type="text" class="form-control" id="services_title<?php echo $index; ?>" name="services[<?php echo $index; ?>][title]" value="<?php echo htmlspecialchars($service['title']); ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="services_content<?php echo $index; ?>">Content:</label>
+                        <textarea class="form-control" id="services_content<?php echo $index; ?>" name="services[<?php echo $index; ?>][content]" rows="4" required><?php echo htmlspecialchars($service['content']); ?></textarea>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+        
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+</div>
+
+<div class="tab-pane fade" id="faqs" role="tabpanel" aria-labelledby="faqs-tab">
+    <h2>FAQs</h2>
+    
+    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+        <!-- Nav tabs for FAQs -->
+        <ul class="nav nav-tabs" id="faqTab" role="tablist">
+            <?php foreach ($jsonData['faqs'] as $index => $faq) { ?>
+                <li class="nav-item">
+                    <a class="nav-link text-dark <?php echo $index === 0 ? 'active' : ''; ?>" id="faq-tab-<?php echo $index; ?>" data-toggle="tab" href="#faq<?php echo $index; ?>" role="tab" aria-controls="faq<?php echo $index; ?>" aria-selected="<?php echo $index === 0 ? 'true' : 'false'; ?>">FAQ <?php echo $index + 1; ?></a>
+                </li>
+            <?php } ?>
+        </ul>
+
+        <!-- Tab panes for FAQs -->
+        <div class="tab-content" id="faqTabContent">
+            <?php foreach ($jsonData['faqs'] as $index => $faq) { ?>
+                <div class="tab-pane fade <?php echo $index === 0 ? 'show active' : ''; ?>" id="faq<?php echo $index; ?>" role="tabpanel" aria-labelledby="faq-tab-<?php echo $index; ?>">
+                    <h3>FAQ <?php echo $index + 1; ?></h3>
+                    <div class="form-group">
+                        <label for="faqs_title<?php echo $index; ?>">Title:</label>
+                        <input type="text" class="form-control" id="faqs_title<?php echo $index; ?>" name="faqs[<?php echo $index; ?>][title]" value="<?php echo htmlspecialchars($faq['title']); ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="faqs_content<?php echo $index; ?>">Content:</label>
+                        <textarea class="form-control" id="faqs_content<?php echo $index; ?>" name="faqs[<?php echo $index; ?>][content]" rows="4" required><?php echo htmlspecialchars($faq['content']); ?></textarea>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+        
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+</div>
+
+  </div>
+</div>
+
+    
+ </div>
+
+
+
+  </body>
 </html>
+
+<?php
+include 'sidebar.php';
+?>

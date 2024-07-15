@@ -89,6 +89,11 @@
 <!-- Font Awesome CDN Link -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+<style>
+  .site-navigation{
+background-color: #0C634B !important;
+  }
+</style>
 
 </head>
 <body>
@@ -130,9 +135,9 @@
   </div><!-- Container end -->
 </div>
 
-<div class="site-navigation">
-  <div class="container">
-      <div class="row">
+<div class="site-navigation ">
+  <div class="container ">
+      <div class="row ">
         <div class="col-lg-12">
             <nav class="navbar navbar-expand-lg navbar-dark p-0">
         <button class="navbar-toggler" type="button"  data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -148,7 +153,7 @@
                         <li class="nav-item dropdown">
      <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">About Us<i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a href="ourstory.php">Our Story</a></li>
+                          <li><a href="./pages/ourstory.php">Our Story</a></li>
                            <li><a href="team.php">Our Team</a></li>
                           <li><a href="ventures.php">Our Ventures</a></li>
                           <li><a href="portfolio.php">Our Portfolio</a></li>
