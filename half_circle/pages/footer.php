@@ -90,16 +90,16 @@
   ================================================== -->
 
   <!-- initialize jQuery Library -->
-  <script src="../js/jquery.min.js"></script>
+  <script src="./js/jquery.min.js"></script>
   <!-- Bootstrap jQuery -->
-  <script src="../js/bootstrap.min.js" ></script>
+  <script src="./js/bootstrap.min.js" ></script>
   <!-- Slick Carousel -->
-  <script src="../js/slick.min.js"></script>
-  <script src="../js/animation.min.js"></script>
+  <script src="./js/slick.min.js"></script>
+  <script src="./js/animation.min.js"></script>
   <!-- Color box -->
-  <script src="../js/colorbox.js"></script>
+  <script src="./js/colorbox.js"></script>
   <!-- shuffle -->
-  <script src="../js/shuffle.min.js" defer></script>
+  <script src="./js/shuffle.min.js" defer></script>
 
 
   <!-- Google Map API Key-->
@@ -108,7 +108,7 @@
   <!-- <script src="plugins/google-map/map.js" defer></script> -->
 
   <!-- Template custom -->
-  <script src="../js/script.js"></script>
+  <script src="./js/script.js"></script>
   </div><!-- Body inner end -->
   </body>
   <script>'undefined'=== typeof _trfq || (window._trfq = []);'undefined'=== typeof _trfd && (window._trfd=[]),_trfd.push({'tccl.baseHost':'secureserver.net'},{'ap':'cpsh-oh'},{'server':'sg2plzcpnl505581'},{'dcenter':'sg2'},{'cp_id':'4984939'},{'cp_cache':''},{'cp_cl':'8'}) // Monitoring performance to make your website faster. If you want to opt-out, please contact web hosting support.</script><script src='https://img1.wsimg.com/traffic-assets/js/tccl.min.js'></script></html>

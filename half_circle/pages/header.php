@@ -1,3 +1,7 @@
+<?php
+// include './css/testCss.php';
+// echo 'HEELLP'
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,19 +22,19 @@
 ================================================== -->
   <!-- Bootstrap -->
    <!-- <link rel="stylesheet" href="/css/style.css"> -->
-  <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" href="./css/bootstrap.css">
   <!-- FontAwesome -->
-  <link rel="stylesheet" href="../css/all.min.css">
+  <link rel="stylesheet" href="./css/all.min.css">
   <!-- Animation -->
-  <link rel="stylesheet" href="../css/animate.css">
+  <link rel="stylesheet" href="./css/animate.css">
   <!-- slick Carousel -->
-  <link rel="stylesheet" href="../css/slick.css">
-  <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="./css/slick.css">
+  <link rel="stylesheet" href="./css/theme.css">
   <!-- Colorbox -->
-  <link rel="stylesheet" href="../css/colorbox.css">
+  <link rel="stylesheet" href="./css/colorbox.css">
   <!-- Template styles-->
-  <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/mobile-icon.css">
+  <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/mobile-icon.css">
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RH4MMPJPLW"></script>
 <script>

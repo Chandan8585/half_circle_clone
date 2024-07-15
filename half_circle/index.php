@@ -1,51 +1,51 @@
 <?php 
-// include "includes/db.php"; 
+include "admin/config.php"; 
 ?>
 <?php
-//  $sql = "select * from homepage WHERE id=1";
-//  $result = mysqli_query($connection , $sql);
-// if(mysqli_num_rows($result)== 1 ){
-//  while($row = mysqli_fetch_assoc($result)){
-//   $banner1 = $row['banner_image1'];
-//     $banner2 = $row['banner_image2'];
-//     $banner3 = $row['banner_image3'];
+ $sql = "select * from homepage WHERE id=1";
+ $result = mysqli_query($conn , $sql);
+if(mysqli_num_rows($result)== 1 ){
+ while($row = mysqli_fetch_assoc($result)){
+  $banner1 = $row['banner_image1'];
+    $banner2 = $row['banner_image2'];
+    $banner3 = $row['banner_image3'];
 
-//     $paragraph_title1 = $row['paragraph_title1'];
-//     $paragraph_content1 = $row['paragraph_content1'];
-//     $paragraph_title2 = $row['paragraph_title2'];
-//     $paragraph_content2 = $row['paragraph_content2'];
-//     $paragraph_title3 = $row['paragraph_title3'];
-//     $paragraph_content3 = $row['paragraph_content3'];
+    $paragraph_title1 = $row['paragraph_title1'];
+    $paragraph_content1 = $row['paragraph_content1'];
+    $paragraph_title2 = $row['paragraph_title2'];
+    $paragraph_content2 = $row['paragraph_content2'];
+    $paragraph_title3 = $row['paragraph_title3'];
+    $paragraph_content3 = $row['paragraph_content3'];
 
-//     $faq_title1 = $row['faq_title1'];
-//     $faq_content1 = $row['faq_content1'];
-//     $faq_title2 = $row['faq_title2'];
-//     $faq_content2 = $row['faq_content2'];
-//     $faq_title3 = $row['faq_title3'];
-//     $faq_content3 = $row['faq_content3'];
-//     $faq_title4 = $row['faq_title4'];
-//     $faq_content4 = $row['faq_content4'];
+    $faq_title1 = $row['faq_title1'];
+    $faq_content1 = $row['faq_content1'];
+    $faq_title2 = $row['faq_title2'];
+    $faq_content2 = $row['faq_content2'];
+    $faq_title3 = $row['faq_title3'];
+    $faq_content3 = $row['faq_content3'];
+    $faq_title4 = $row['faq_title4'];
+    $faq_content4 = $row['faq_content4'];
 
     
-// $service_title1 = $row['service_title1'];
-// $service_title2 = $row['service_title2'];
-// $service_title3 = $row['service_title3'];
-// $service_title4 = $row['service_title4'];
-// $service_title5 = $row['service_title5'];
-// $service_title6 = $row['service_title6'];
+$service_title1 = $row['service_title1'];
+$service_title2 = $row['service_title2'];
+$service_title3 = $row['service_title3'];
+$service_title4 = $row['service_title4'];
+$service_title5 = $row['service_title5'];
+$service_title6 = $row['service_title6'];
 
-//     $service1 = $row['service1'];
-//     $service2 = $row['service2'];
-//     $service3 = $row['service3'];
-//     $service4 = $row['service4'];
-//     $service5 = $row['service5'];
-//     $service6 = $row['service6'];
-//  }
-// }
+    $service1 = $row['service1'];
+    $service2 = $row['service2'];
+    $service3 = $row['service3'];
+    $service4 = $row['service4'];
+    $service5 = $row['service5'];
+    $service6 = $row['service6'];
+ }
+}
 ?>
 
 <?php
-include './pages/header.php';
+include 'pages/header.php';
 ?>
 
 <!--/ Header end -->
@@ -846,7 +846,7 @@ include './pages/header.php';
 
 <!--/ News end -->
 <?php
-include 'footer.php';
+include './pages/footer.php';
 ?>
 </body>
 </html>
