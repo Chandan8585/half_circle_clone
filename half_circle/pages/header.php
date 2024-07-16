@@ -1,6 +1,5 @@
 <?php
-// include './css/testCss.php';
-// echo 'HEELLP'
+// include '../css/testCss.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,19 +21,19 @@
 ================================================== -->
   <!-- Bootstrap -->
    <!-- <link rel="stylesheet" href="/css/style.css"> -->
-  <link rel="stylesheet" href="./css/bootstrap.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
   <!-- FontAwesome -->
-  <link rel="stylesheet" href="./css/all.min.css">
+  <link rel="stylesheet" href="css/all.min.css">
   <!-- Animation -->
-  <link rel="stylesheet" href="./css/animate.css">
+  <link rel="stylesheet" href="css/animate.css">
   <!-- slick Carousel -->
-  <link rel="stylesheet" href="./css/slick.css">
-  <link rel="stylesheet" href="./css/theme.css">
+  <link rel="stylesheet" href="css/slick.css">
+  <link rel="stylesheet" href="css/theme.css">
   <!-- Colorbox -->
-  <link rel="stylesheet" href="./css/colorbox.css">
+  <link rel="stylesheet" href="css/colorbox.css">
   <!-- Template styles-->
-  <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/mobile-icon.css">
+  <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/mobile-icon.css">
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RH4MMPJPLW"></script>
 <script>
@@ -54,10 +53,10 @@
 
   gtag('config', 'AW-780625255');
 </script>
-<link rel="stylesheet" href="/css/mobile-icon.css">
+<link rel="stylesheet" href="css/mobile-icon.css">
 	<div class="ccw_plugin chatbot" style="bottom:10px; left:10px;"> 
 	  <div class="style4 animated no-animation ccw-no-hover-an"> <a target="_blank" href="https://web.whatsapp.com/send?phone=919839836095&amp;text=mindbridge consultant Media:" class="nofocus">
-      <div class="chip style-4 ccw-analytics" id="style-4" data-ccw="style-4" style="background-color: #1e73be; color: #ffffff"> <img src="images/whatspp.png" class="ccw-analytics" id="s4-icon" data-ccw="style-4" alt="WhatsApp"> WhatsApp us</div>
+      <div class="chip style-4 ccw-analytics" id="style-4" data-ccw="style-4" style="background-color: #1e73be; color: #ffffff"> <img src="../images/whatspp.png" class="ccw-analytics" id="s4-icon" data-ccw="style-4" alt="WhatsApp"> WhatsApp us</div>
       </a> 
 	  </div>
 	  </div>
@@ -153,7 +152,7 @@ background-color: #0C634B !important;
                         <li class="nav-item dropdown">
      <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">About Us<i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a href="./pages/ourstory.php">Our Story</a></li>
+                          <li><a href="ourstory.php">Our Story</a></li>
                            <li><a href="team.php">Our Team</a></li>
                           <li><a href="ventures.php">Our Ventures</a></li>
                           <li><a href="portfolio.php">Our Portfolio</a></li>
@@ -346,26 +345,21 @@ background-color: #0C634B !important;
                                      <li><a href="Commercial-Photographyn.php">Commercial Photography</a></li>
                             
                             
-                            
-                            
-                            
-                        </ul>
-                    </li>
-            
-            
-            
-            
-            
-            
-            
-              <li class="nav-item dropdown">
-   <a href="Video-Creation.php" class="nav-link dropdown-toggle" data-toggle="dropdown">Video Creation<i class="fa fa-angle-down"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="360-Degree-Video-Production.php">360&deg; Video Production</a></li>
+                                     <li><a href="360-Degree-Video-Production.php">360&deg; Video Production</a></li>
                           <li><a href="Drone-Shoot.php">Drone Shoot</a></li>
                           
+                            
+                            
                         </ul>
                     </li>
+            
+            
+            
+            
+            
+            
+            
+             
                           </li>
                     
                     

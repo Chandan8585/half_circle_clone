@@ -166,7 +166,7 @@
                     <a href="dashboard.php"><span class="fa fa-home mr-3"></span> Dashboard</a>
                 </li>
                 <li>
-                    <a href="edithomepage.php"><span class="fa fa-edit mr-3"></span> Edit Homepage</a>
+                    <a href="update_homepage.php"><span class="fa fa-edit mr-3"></span> Edit Homepage</a>
                 </li>
                 <li>
                     <a href="edithomepage.php"><span class="fa fa-eye mr-3"></span> View All pages</a>

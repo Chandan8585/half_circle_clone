@@ -27,12 +27,11 @@ if ($jsonData === null) {
 // $conn is your database connection
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = '2';
-    
     // Collecting form data
     $banner_images = $_POST['banner_images'];
     $paragraphs = $_POST['paragraphs'];
-    $services = $_POST['services'];
     $faqs = $_POST['faqs'];
+    $services = $_POST['services'];
 
     // Prepare JSON data
     $slide_content = json_encode([
@@ -40,26 +39,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'paragraphs' => $paragraphs,
         'services' => $services,
         'faqs' => $faqs
-    ]);
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
     // Update query
     $query = "UPDATE `pages` SET `slide_content` = ? WHERE `id` = ?";
-    
     $stmt = $conn->prepare($query);
     $stmt->bind_param('si', $slide_content, $id);
-    
+
     if ($stmt->execute()) {
         echo "Update successful.";
     } else {
         echo "Error: " . $stmt->error;
     }
-    
+
     $stmt->close();
 }
-
-
-
 ?>
+
+
+
+
 <html>
     <head>
         <style>
@@ -116,6 +115,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </li>
     <li class="nav-item ">
       <a class="nav-link text-dark" id="faqs-tab" data-toggle="tab" href="#faqs" role="tab" aria-controls="faqs" aria-selected="false">FAQs</a>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link text-dark" id="projects-tab" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="false">Project Images</a>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link text-dark" id="faqs-tab" data-toggle="tab" href="#faqs" role="tab" aria-controls="faqs" aria-selected="false">Testimonials</a>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link text-dark" id="faqs-tab" data-toggle="tab" href="#faqs" role="tab" aria-controls="faqs" aria-selected="false">Client</a>
     </li>
   </ul>
   
@@ -230,7 +238,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
         <!-- Nav tabs for FAQs -->
-        <ul class="nav nav-tabs" id="faqTab" role="tablist">
+        <ul class="nav flex-row nav-tabs" id="faqTab" role="tablist">
             <?php foreach ($jsonData['faqs'] as $index => $faq) { ?>
                 <li class="nav-item">
                     <a class="nav-link text-dark <?php echo $index === 0 ? 'active' : ''; ?>" id="faq-tab-<?php echo $index; ?>" data-toggle="tab" href="#faq<?php echo $index; ?>" role="tab" aria-controls="faq<?php echo $index; ?>" aria-selected="<?php echo $index === 0 ? 'true' : 'false'; ?>">FAQ <?php echo $index + 1; ?></a>
@@ -250,6 +258,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="form-group">
                         <label for="faqs_content<?php echo $index; ?>">Content:</label>
                         <textarea class="form-control" id="faqs_content<?php echo $index; ?>" name="faqs[<?php echo $index; ?>][content]" rows="4" required><?php echo htmlspecialchars($faq['content']); ?></textarea>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+        
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+</div>
+
+<div class="tab-pane fade" id="testimonials" role="tabpanel" aria-labelledby="testimonials-tab">
+    <h2>Testimonials</h2>
+    
+    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+        <!-- Nav tabs for Testimonials -->
+        <ul class="nav nav-tabs" id="testimonialTab" role="tablist">
+            <?php foreach ($jsonData['testimonials'] as $index => $testimonial) { ?>
+                <li class="nav-item">
+                    <a class="nav-link text-dark <?php echo $index === 0 ? 'active' : ''; ?>" id="testimonial-tab-<?php echo $index; ?>" data-toggle="tab" href="#testimonial<?php echo $index; ?>" role="tab" aria-controls="testimonial<?php echo $index; ?>" aria-selected="<?php echo $index === 0 ? 'true' : 'false'; ?>">Testimonial <?php echo $index + 1; ?></a>
+                </li>
+            <?php } ?>
+        </ul>
+
+        <!-- Tab panes for Testimonials -->
+        <div class="tab-content" id="testimonialTabContent">
+            <?php foreach ($jsonData['testimonials'] as $index => $testimonial) { ?>
+                <div class="tab-pane fade <?php echo $index === 0 ? 'show active' : ''; ?>" id="testimonial<?php echo $index; ?>" role="tabpanel" aria-labelledby="testimonial-tab-<?php echo $index; ?>">
+                    <h3>Testimonial <?php echo $index + 1; ?></h3>
+                    <div class="form-group">
+                        <label for="testimonial_url<?php echo $index; ?>">URL:</label>
+                        <input type="text" class="form-control" id="testimonial_url<?php echo $index; ?>" name="testimonials[<?php echo $index; ?>][url]" value="<?php echo htmlspecialchars($testimonial['url']); ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="testimonial_content<?php echo $index; ?>">Content</label>
+                        <textarea class="form-control" id="testimonial_content<?php echo $index; ?>" name="testimonials[<?php echo $index; ?>][content]" rows="4" required><?php echo htmlspecialchars($testimonial['content']); ?></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="testimonial_name<?php echo $index; ?>">Name</label>
+                        <textarea class="form-control" id="testimonial_name<?php echo $index; ?>" name="testimonials[<?php echo $index; ?>][name]" rows="4" required><?php echo htmlspecialchars($testimonial['name']); ?></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="testimonial_designation<?php echo $index; ?>">Designation</label>
+                        <textarea class="form-control" id="testimonial_designation<?php echo $index; ?>" name="testimonials[<?php echo $index; ?>][designation]" rows="4" required><?php echo htmlspecialchars($testimonial['designation']); ?></textarea>
                     </div>
                 </div>
             <?php } ?>

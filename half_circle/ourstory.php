@@ -1,7 +1,7 @@
 <?php
-include 'header.php';
+include 'pages/header.php';
+
 ?>
-<html>
 <div id="banner-area" class="banner-area" style="background-image:url(https://t4.ftcdn.net/jpg/04/03/27/39/360_F_403273952_rzAfeNqfa7jFZCmDoeB2qLKtJYAx23dj.jpg)">
   <div class="banner-text">
     <div class="container">
@@ -103,7 +103,7 @@ include 'header.php';
 
   </div><!-- Container end -->
 </section><!-- Main container end -->
-
+</body>
 <html>
 <?php
 
