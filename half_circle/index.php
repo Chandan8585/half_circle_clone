@@ -521,7 +521,7 @@ include 'pages/header.php';
 
 <!--/ News end -->
 <?php
-include './pages/footer.php';
+include 'pages/footer.php';
 ?>
 </body>
 </html>

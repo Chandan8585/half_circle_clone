@@ -11,11 +11,11 @@
             <div class="footer-social">
               <ul>
                 <li><a href="https://www.facebook.com/mindbridgeconsultant1" target="_blank" aria-label="Facebook"><i
-                      class="fab fa-facebook-f"></i></a></li>
-                <li><a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>                </li>
-				 <li><a href="https://linkedin.com/company/mindbridgeconsultant" target="_blank" aria-label="LinedIn"><i class="fab fa-linkedin"></i></a>                </li>
-                <li><a href="https://instagram.com/mindbridgeconsultantmedia" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
-                <li><a href="https://youtube.com/@mindbridgeconsultantmedia" target="_blank" aria-label="youtube"><i class="fab fa-youtube"></i></a></li>
+                      class="fa fa-facebook-f"></i></a></li>
+                <li><a href="https://twitter.com/Half_Circles_IN" target="_blank" aria-label="Twitter"><i class="fa fa-twitter"></i></a>                </li>
+				 <li><a href="https://linkedin.com/company/mindbridgeconsultant" target="_blank" aria-label="LinedIn"><i class="fa fa-linkedin"></i></a>                </li>
+                <li><a href="https://instagram.com/mindbridgeconsultantmedia" target="_blank" aria-label="Instagram"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://youtube.com/@mindbridgeconsultantmedia" target="_blank" aria-label="youtube"><i class="fa fa-youtube"></i></a></li>
               </ul>
             </div><!-- Footer social end -->
           </div><!-- Col end -->
@@ -26,7 +26,7 @@
               We provide 24X7 support to our customers. Contact us if you have any query. Our contact details are as under:  <br>or simply by filling the Contact form.
               <br>Our Office timings are:<br>
 			  
-			  <strong>Phone:</strong> (+91)99999999999<br>
+			  <strong>Phone:</strong> (+91)983-983-6095<br>
 
 <strong>Email: </strong>info@mindbridgeconsultant.com<br>
 <strong>OFFICE HOURS:</strong>

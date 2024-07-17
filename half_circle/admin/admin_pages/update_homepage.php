@@ -79,19 +79,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 min-height: 5rem;
                 height: auto;
             }
+
             @media screen and (max-width: 768px){
                 #content{
                 margin-top: 30rem;
             }
             }
+
+
         </style>
     </head>
   <body>
   
  <div id='content'>
-    <h1>Update Our Story Page from Here</h1>
+    <h1>Update Your Home Page from Here</h1>
  <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-        <label for="id">ID:</label><br>
+        <!-- <label for="id">ID:</label><br> -->
         <input type="text" id="id" name="id" value="2" required hidden><br>
         
    
@@ -120,10 +123,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <a class="nav-link text-dark" id="projects-tab" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="false">Project Images</a>
     </li>
     <li class="nav-item ">
-      <a class="nav-link text-dark" id="faqs-tab" data-toggle="tab" href="#faqs" role="tab" aria-controls="faqs" aria-selected="false">Testimonials</a>
+      <a class="nav-link text-dark" id="testimonials-tab" data-toggle="tab" href="#testimonials" role="tab" aria-controls="faqs" aria-selected="false">Testimonials</a>
     </li>
     <li class="nav-item ">
-      <a class="nav-link text-dark" id="faqs-tab" data-toggle="tab" href="#faqs" role="tab" aria-controls="faqs" aria-selected="false">Client</a>
+      <a class="nav-link text-dark" id="clients-tab" data-toggle="tab" href="#clients" role="tab" aria-controls="clients" aria-selected="false">Client</a>
     </li>
   </ul>
   
@@ -266,6 +269,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button type="submit" class="btn btn-primary mt-3">Submit</button>
     </form>
 </div>
+<div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
+    <h2>Portfolio Items</h2>
+    
+    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+        <!-- Nav tabs for Project Images -->
+        <ul class="nav nav-tabs" id="projectTab" role="tablist">
+            <?php foreach ($jsonData['project_images'] as $index => $project) { ?>
+                <li class="nav-item">
+                    <a class="nav-link text-dark <?php echo $index === 0 ? 'active' : ''; ?>" id="project-tab-<?php echo $index; ?>" data-toggle="tab" href="#project<?php echo $index; ?>" role="tab" aria-controls="project<?php echo $index; ?>" aria-selected="<?php echo $index === 0 ? 'true' : 'false'; ?>">Project Images <?php echo $index + 1; ?></a>
+                </li>
+            <?php } ?>
+        </ul>
+
+        <!-- Tab panes for Project Images -->
+        <div class="tab-content" id="projectTabContent">
+            <?php foreach ($jsonData['project_images'] as $index => $project) { ?>
+                <div class="tab-pane fade <?php echo $index === 0 ? 'show active' : ''; ?>" id="project<?php echo $index; ?>" role="tabpanel" aria-labelledby="project-tab-<?php echo $index; ?>">
+                    <h3>Project <?php echo $index + 1; ?></h3>
+                    <div class="form-group">
+                        <label for="project_url<?php echo $index; ?>">URL:</label>
+                        <input type="text" class="form-control" id="project_url<?php echo $index; ?>" name="project_images[<?php echo $index; ?>][url]" value="<?php echo htmlspecialchars($project['url']); ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="project_id<?php echo $index; ?>">Project Category</label>
+                        <textarea class="form-control" id="project_id<?php echo $index; ?>" name="project_images[<?php echo $index; ?>][id]" rows="4" required><?php echo htmlspecialchars($project['id']); ?></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="project_title<?php echo $index; ?>">Project Title</label>
+                        <textarea class="form-control" id="project_title<?php echo $index; ?>" name="project_images[<?php echo $index; ?>][title]" rows="4" required><?php echo htmlspecialchars($project['title']); ?></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="project_tag<?php echo $index; ?>">Project Tag</label>
+                        <textarea class="form-control" id="project_tag<?php echo $index; ?>" name="project_images[<?php echo $index; ?>][tag]" rows="4" required><?php echo htmlspecialchars($project['tag']); ?></textarea>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+        
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+</div>
 
 <div class="tab-pane fade" id="testimonials" role="tabpanel" aria-labelledby="testimonials-tab">
     <h2>Testimonials</h2>
@@ -309,6 +353,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
 </div>
 
+
+
+<div class="tab-pane fade" id="clients" role="tabpanel" aria-labelledby="clients-tab">
+    <h2>clients</h2>
+    
+    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" id="client_form" >
+        <!-- Nav tabs for Testimonials -->
+        <ul class="nav nav-tabs" id="clientsTab" role="tablist">
+            <?php foreach ($jsonData['clients'] as $index => $clients) { ?>
+                <li class="nav-item">
+                    <a class="nav-link text-dark <?php echo $index === 0 ? 'active' : ''; ?>" id="clients-tab-<?php echo $index; ?>" data-toggle="tab" href="#clients<?php echo $index; ?>" role="tab" aria-controls="clients<?php echo $index; ?>" aria-selected="<?php echo $index === 0 ? 'true' : 'false'; ?>">Clients <?php echo $index + 1; ?></a>
+                </li>
+            <?php } ?>
+        </ul>
+
+        <!-- Tab panes for Testimonials -->
+        <div class="tab-content" id="clientsTabContent">
+            <?php foreach ($jsonData['clients'] as $index => $clients) { ?>
+                <div class="tab-pane fade <?php echo $index === 0 ? 'show active' : ''; ?>" id="clients<?php echo $index; ?>" role="tabpanel" aria-labelledby="clients-tab-<?php echo $index; ?>">
+                    <h3>clients <?php echo $index + 1; ?></h3>
+                    <div class="form-group" id="small_table">
+                        <label for="clients_url<?php echo $index; ?>">URL:</label>
+                        <input type="text" class="form-control" id="clients_url<?php echo $index; ?>" name="clients[<?php echo $index; ?>][url]" value="<?php echo htmlspecialchars($clients['url']); ?>" required>
+                    
+                    </div>
+                </div>
+            <?php } ?>
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+
+        </div>
+        
+        
+    </form>
+</div>
   </div>
 </div>
 

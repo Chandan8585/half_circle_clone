@@ -1,19 +1,37 @@
 <?php
 include 'pages/header.php';
+include 'admin/config.php';
+$id = 7;
+$stmt = $conn->prepare("SELECT * FROM pages WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt-> execute();
+$result = $stmt->get_result();
+
+if($result->num_rows===1){
+  $row = $result->fetch_assoc();
+  $jsonData = json_decode($row['slide_content'], true);
+
+    if($jsonData === null){
+      die("Error decoding JSON Data");
+    }
+  } else{
+      die("No record found with id=$id");
+  }
+
 ?>
 <html>
-<div id="banner-area" class="banner-area" style="background-image:url(https://images.unsplash.com/photo-1596524430615-b46475ddff6e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)">
+<div id="banner-area" class="banner-area" style="background-image:url(<?php echo htmlspecialchars($jsonData['banner_images'][0]['url'])?>)">
   <div class="banner-text">
     <div class="container">
         <div class="row">
           <div class="col-lg-12">
               <div class="banner-heading">
-                <h1 class="banner-title">Contact Us</h1>
+                <h1 class="banner-title"><?php echo htmlspecialchars($jsonData['banner_images'][0]['title'])?></h1>
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb justify-content-center">
+                    <ol class="breadcrumb justify-content-center bg-dark">
                       <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                  
-                      <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+                      <li class="breadcrumb-item active" aria-current="page"><?php echo htmlspecialchars($jsonData['banner_images'][0]['title'])?></li>
                     </ol>
                 </nav>
               </div>
@@ -32,80 +50,31 @@ include 'pages/header.php';
       <!--/ Title row end -->
 
       <div class="row">
-         <div class="col-lg-4 col-md-6">
+         <?php
+      foreach ($jsonData['testimonials'] as $index => $testimonial) {
+      ?>
+              <div class="col-lg-4 col-md-6">
             <div class="quote-item quote-border mt-5">
                <div class="quote-text-border">
-                   HCMPL is a team of dedication, hard work and sheer will. I wish them good luck for
+               <?php echo htmlspecialchars($jsonData['testimonials'][$index]['content']); ?>
                </div>
 
                <div class="quote-item-footer">
-                 <img loading="lazy" class="testimonial-thumb" src="images/clients/sanjayRai.jpg" alt="testimonial">
+                 <img loading="lazy" class="testimonial-thumb" src="<?php echo htmlspecialchars($jsonData['testimonials'][$index]['url']); ?>" alt="testimonial">
                   <div class="quote-item-info">
-                          <h3 class="quote-author"> Sanjay Rai</h3>
-                          <span class="quote-subtext">IT Head, BJP Uttar Pradesh</span>                      </div>
+                          <h3 class="quote-author"> <?php echo htmlspecialchars($jsonData['testimonials'][$index]['name']); ?></h3>
+                          <span class="quote-subtext"><?php echo htmlspecialchars($jsonData['testimonials'][$index]['designation']); ?></span>                      </div>
                </div>
             </div><!-- Quote item end -->
-         </div><!-- End col md 4 -->
-
-         <div class="col-lg-4 col-md-6">
-            <div class="quote-item quote-border mt-5">
-               <div class="quote-text-border">
-                  We are just amazed at the level of team's dedication. The ability to think out of
-									the box is what differentiates them from the others. 
-               </div>
-
-               <div class="quote-item-footer">
-                  <img loading="lazy" class="testimonial-thumb" src="images/clients/avinashJoshi.jpg" alt="testimonial">
-                  <div class="quote-item-info">
-                     <h3 class="quote-author">Avinash Joshi</h3>
-                     <span class="quote-subtext">IT Head, BJP Rajasthan</span>
-                  </div>
-               </div>
-            </div><!-- Quote item end -->
-         </div><!-- End col md 4 -->
-
-         <div class="col-lg-4 col-md-6">
-            <div class="quote-item quote-border mt-5">
-               <div class="quote-text-border">
-                  HCMPL will always be known for strong, creative and dedicated team which can do
-									wonders if given good support and free hand.
-               </div>
-
-               <div class="quote-item-footer">
-                  <img loading="lazy" class="testimonial-thumb" src="images/clients/amitMalviya.jpg" alt="testimonial">
-                  <div class="quote-item-info">
-                     <h3 class="quote-author">Amit Malviya</h3>
-                     <span class="quote-subtext">National IT Head, BJP</span>
-                  </div>
-               </div>
-            </div><!-- Quote item end -->
-         </div><!-- End col md 4 -->
-		 
-		 
-		  <div class="col-lg-4 col-md-6">
-            <div class="quote-item quote-border mt-5">
-               <div class="quote-text-border">
-                  We worked on a
-									short term project with aimed at accelerating the online growth of our rural
-									media platform Gaon Connection and saw amazing
-									results, and in keeping with with our strictly ethical para metres.
-               </div>
-
-               <div class="quote-item-footer">
-                  <img loading="lazy" class="testimonial-thumb" src="images/clients/nileshMisra.jpg" alt="testimonial">
-                  <div class="quote-item-info">
-                     <h3 class="quote-author">Neelesh Misra</h3>
-                     <span class="quote-subtext">Founder, Gaon Connection</span>
-                  </div>
-               </div>
-            </div><!-- Quote item end -->
-         </div><!-- End col md 4 -->
-
-      </div><!-- Content row end -->
+         </div>     
+          
+      <?php
+    } 
+    ?>
 
    </div><!-- Container end -->
 </section>
 <html>
 <?php
-include 'footer.php';
+include 'pages/footer.php';
 ?>

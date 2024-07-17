@@ -1,19 +1,38 @@
 <?php
 include 'pages/header.php';
+include 'admin/config.php';
+$id = 6;
+$stmt = $conn->prepare("SELECT * FROM pages WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt-> execute();
+$result = $stmt->get_result();
+
+if($result->num_rows===1){
+  $row = $result->fetch_assoc();
+  $jsonData = json_decode($row['slide_content'], true);
+
+    if($jsonData === null){
+      die("Error decoding JSON Data");
+    }
+  } else{
+      die("No record found with id=$id");
+  }
+
 ?>
+
 <html>
-<div id="banner-area" class="banner-area" style="background-image:url(https://images.unsplash.com/photo-1596524430615-b46475ddff6e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)">
+<div id="banner-area" class="banner-area" style="background-image:url(<?php echo htmlspecialchars($jsonData['banner_images'][0]['url'])?>)">
   <div class="banner-text">
     <div class="container">
         <div class="row">
           <div class="col-lg-12">
               <div class="banner-heading">
-                <h1 class="banner-title">Our Ventures</h1>
+                <h1 class="banner-title"><?php echo htmlspecialchars($jsonData['banner_images'][0]['title'])?></h1>
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb justify-content-center">
+                    <ol class="breadcrumb justify-content-center bg-transparent">
                       <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                  
-                      <li class="breadcrumb-item active" aria-current="page">Our Ventures</li>
+                      <li class="breadcrumb-item active" aria-current="page"><?php echo htmlspecialchars($jsonData['banner_images'][0]['title'])?></li>
                     </ol>
                 </nav>
               </div>
@@ -24,172 +43,126 @@ include 'pages/header.php';
 </div><!-- Banner area end --> 
 <section id="main-container" class="main-container">
   <div class="container">
+
+    <div class="row text-center">
+      <div class="col-12">
+        <h2 class="section-title">Reaching our Offices</h2>
+        <h3 class="section-sub-title">Find Our Locations</h3>
+      </div>
+    </div>
+    <!--/ Title row end -->
+
     <div class="row">
-        <div class="col-lg-6">
-          <h3 class="column-title">Grasshopper</h3>
-          <p>This is India's first & only bilingual Travel and tourism magazine. With 42 editions to its credit, Grasshopper has impressive foot print across the country.</p>
-          <blockquote><p>“This is India's first & only Bilingual platform that fulfils all the needs of a traveller.”</p></blockquote>
-          
-<p><a href="https://www.grasshopperyatra.com" target="_blank"><strong>www.grasshopperyatra.com </strong></a> is a unique website dedicated to the tourism, travel and related lifestyle. Maintaining its separate and independent identity, It makes you 'walk around the world'.
-Website: <a href="https://www.grasshopperyatra.com" target="_blank"><strong>www.grasshopperyatra.com </strong></a></p>
-        </div><!-- Col end -->
+      <div class="col-md-4">
+        <div class="ts-service-box-bg text-center h-100">
+          <span class="ts-service-icon icon-round">
+            <i class="<?php echo htmlspecialchars($jsonData['icon_box'][0]['icon'])?> mr-0"></i>
+          </span>
+          <div class="ts-service-box-content">
+            <h4><?php echo htmlspecialchars($jsonData['icon_box'][0]['title'])?></h4>
+            <p><?php echo htmlspecialchars($jsonData['icon_box'][0]['content'])?></p>
+          </div>
+        </div>
+      </div><!-- Col 1 end -->
 
-        <div class="col-lg-6 mt-5 mt-lg-0">
-          
-          <div id="page-slider" class="page-slider small-bg">
+      <div class="col-md-4">
+        <div class="ts-service-box-bg text-center h-100">
+          <span class="ts-service-icon icon-round">
+          <i class="<?php echo htmlspecialchars($jsonData['icon_box'][1]['icon'])?> mr-0"></i>
+          </span>
+          <div class="ts-service-box-content">
+          <h4><?php echo htmlspecialchars($jsonData['icon_box'][0]['title'])?></h4>
+          <p><?php echo htmlspecialchars($jsonData['icon_box'][0]['content'])?></p>
+          </div>
+        </div>
+      </div><!-- Col 2 end -->
 
-              <div class="item" style="background-image:url(images/slider-pages/slide-page1-Venture.jpg)">
-                <div class="container">
-                    <div class="box-slider-content">
-                      <div class="box-slider-text">
-                          <h2 class="box-slide-title">Logo</h2>
-                      </div>    
-                    </div>
-                </div>
-              </div><!-- Item 1 end -->
+      <div class="col-md-4">
+        <div class="ts-service-box-bg text-center h-100">
+          <span class="ts-service-icon icon-round">
+          <i class="<?php echo htmlspecialchars($jsonData['icon_box'][2]['icon'])?> mr-0"></i>
+          </span>
+          <div class="ts-service-box-content">
+            <h4><?php echo htmlspecialchars($jsonData['icon_box'][2]['title'])?></p>
+            <p><?php echo htmlspecialchars($jsonData['icon_box'][2]['title'])?></p>
+          </div>
+        </div>
+      </div><!-- Col 3 end -->
 
-              <div class="item" style="background-image:url(images/slider-pages/slide-page2-Venture.jpg)">
-                <div class="container">
-                    <div class="box-slider-content">
-                      <div class="box-slider-text">
-                          <h2 class="box-slide-title">Print</h2>
-                      </div>    
-                    </div>
-                </div>
-              </div><!-- Item 1 end -->
+    </div><!-- 1st row end -->
 
-              <div class="item" style="background-image:url(images/slider-pages/slide-page3-Venture.jpg)">
-                <div class="container">
-                    <div class="box-slider-content">
-                      <div class="box-slider-text">
-                          <h2 class="box-slide-title">Website</h2>
-                      </div>    
-                    </div>
-                </div>
-              </div><!-- Item 1 end -->
-          </div><!-- Page slider end-->          
-        
+    <div class="gap-60"></div>
 
-        </div><!-- Col end -->
-    </div><!-- Content row end -->
+    <div class="google-map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.7373981909554!2d81.0025247926908!3d26.848303471319134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399be39319119a41%3A0x7d5abe980b56eb0a!2sHalf%20Circles%20Media%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1637052005237!5m2!1sen!2sin" width="1110" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
 
-  </div><!-- Container end -->
-</section><!-- Main container end -->
-
-<section id="main-container" class="main-container">
-  <div class="container">
+    <div class="gap-40"></div>
+	
+    <p><?php echo htmlspecialchars($jsonData['map_link'][0]['content'])?></p>
     <div class="row">
-        <div class="col-lg-6">
-          <h3 class="column-title">War Room</h3>
-          <p>The term War Room is self-explanatory. It is a room where someone’s WAR is planned, executed and monitored. Whether it is a matter of victory in the field of elections or business or any other sector, a leader needs a War-Room. Usually War Rooms are a physical phenomenon. In the present era of cutting edge technology, a digital version of such War Room is the need of the hour.<br> Presently there is no such initiative or product in this space— the electioneering. To fill this gap, Half Circles Media has come up with an idea of Digital War Room. Our WarRoom is not just a service App, it is a mission. A mission to bring transparency and professionalism in the way elections are fought and managed on the ground. Keeping its character fully apolitical, this initiative provides 360 degree solution to the challenges faced by law makers of the nation.</p>
-          <blockquote><p>“WarRoom is offering a one stop solution to the current and future Law makers.”</p></blockquote>
-          <p>Coupled with a centralised team of highly qualified professionals placed in Lucknow and NCR and a strong local-information-chain, WarRoom is offering a one stop solution to the current and future Law makers. In so many ways, this App transforms Law Makers into a different personality.<br>
-          This digital WarRoom provides real time key developments, analysed data, research, campaign plans, surveys, surveillance mechanism, media and social media strategies. Besides, it plans and monitors different campaigns. Visit the WarRoom website :<strong><a href="https://www.war-room.in" target="_blank"> www.war-room.in </a></strong> </p>
+      <div class="col-md-12">
+        <h3 class="column-title">Write Us</h3>
+      
+       <form method="post" name="contctfrm" id="contctfrm" onSubmit="return validate( );" action="">
+          <div></div>
+          <div class="row">
+		  
+		  
+		  
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Name</label>
+                <input class="form-control form-control-name" name="name" id="name" placeholder="" type="text" required>
+              </div>
+            </div>
+			
+			
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Email</label>
+                <input class="form-control form-control-email" name="email" id="email" placeholder="" type="email" required>
+              </div>
+            </div>
+			
+			
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>City</label>
+                <input class="form-control form-control-subject" name="city" id="city" placeholder="" required>
+              </div>
+            </div>
+			
+			
+			<div class="col-md-4">
+              <div class="form-group">
+                <label>Mobile</label>
+                <input class="form-control form-control-subject" name="phone" id="phone" placeholder="" required>
+              </div>
+            </div>
+			
+			
+			
+			
+			
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea class="form-control form-control-message" name="query" id="query" placeholder="" rows="10"
+              required> </textarea>
+          </div>
+		  
+          <div class="text-right"><br>
+            <input class="btn btn-primary solid blank" name="Submit" type="submit"  id="Submit" value="Submit" />
+          </div>
+        </form>
+      </div>
 
-        </div><!-- Col end -->
-
-        <div class="col-lg-6 mt-5 mt-lg-0">
-          
-          <div id="page-slider" class="page-slider small-bg">
-
-           <div class="item" style="background-image:url(images/slider-pages/slide-page1-wr.jpg)">
-               <a href="https://www.war-room.in" target="_blank">    <div class="container">
-                    <div class="box-slider-content">
-                      <div class="box-slider-text">
-                          <h2 class="box-slide-title">Logo</h2>
-                      </div>    
-                    </div>
-                </div>
-              </a>
-
-
-              </div><!-- Item 1 end -->
-              <div class="item" style="background-image:url(images/slider-pages/slide-page2-wr.jpg)">
-                <div class="container">
-                    <div class="box-slider-content">
-                      <div class="box-slider-text">
-                          <h2 class="box-slide-title">Tab Based App</h2>
-                      </div>    
-                    </div>
-                </div>
-              </div><!-- Item 1 end -->
-
-              <div class="item" style="background-image:url(images/slider-pages/slide-page3-wr.jpg)">
-                <div class="container">
-                    <div class="box-slider-content">
-                      <div class="box-slider-text">
-                          <h2 class="box-slide-title">Website</h2>
-                      </div>    
-                    </div>
-                </div>
-              </div><!-- Item 1 end -->
-          </div><!-- Page slider end-->          
-        
-
-        </div><!-- Col end -->
-    </div><!-- Content row end -->
-
-  </div><!-- Container end -->
-</section><!-- Main container end -->
-
-
-<section id="main-container" class="main-container">
-  <div class="container">
-    <div class="row">
-        <div class="col-lg-6">
-          <h3 class="column-title">Modify Foundation</h3>
-          <p>Modify Foundations was established in the summer of 2015. Since then, it has walked on an honest path, helping those who need the most and trying to make a better world around us. 'World' for Modify Foundation is not a geographic area of countries. Modify Foundation has followed one simple rule— make our neighbourhood a better place. <br>From spreading awareness about sanitation to making poor realize that educating their children is the most important thing in this world, Modify Foundation leaves no stone unturned for the purpose. Modify Foundation works on a very basic principle of helping with sacred heart and move on.</p>
-          <blockquote><p>“Modify Foundation has followed one simple rule— make our neighbourhood a better place.”</p></blockquote>
-		  <p>For a robust Rural Development model and creating self-sustainable projects for road safety, Modify Foundation has been working for a long time, day and night.<br>
-
-Website: <a href="https://www.modifyfoundation.com" target="_blank"><strong>www.modifyfoundation.com</strong></a>
-</p>
-          
-        </div><!-- Col end -->
-
-        <div class="col-lg-6 mt-5 mt-lg-0">
-          
-          <div id="page-slider" class="page-slider small-bg">
-
-              <div class="item" style="background-image:url(images/slider-pages/slide-page1-modi.jpg)">
-                <div class="container">
-                    <div class="box-slider-content">
-                      <div class="box-slider-text">
-                          <h2 class="box-slide-title">Logo</h2>
-                      </div>    
-                    </div>
-                </div>
-              </div><!-- Item 1 end -->
-
-              <div class="item" style="background-image:url(images/slider-pages/slide-page2-modi.jpg)">
-                <div class="container">
-                    <div class="box-slider-content">
-                      <div class="box-slider-text">
-                          <h2 class="box-slide-title">Programs</h2>
-                      </div>    
-                    </div>
-                </div>
-              </div><!-- Item 1 end -->
-
-              <div class="item" style="background-image:url(images/slider-pages/slide-page3-modi.jpg)">
-                <div class="container">
-                    <div class="box-slider-content">
-                      <div class="box-slider-text">
-                          <h2 class="box-slide-title">Website</h2>
-                      </div>    
-                    </div>
-                </div>
-              </div><!-- Item 1 end -->
-          </div><!-- Page slider end-->          
-        
-
-        </div><!-- Col end -->
-    </div><!-- Content row end -->
-
-  </div><!-- Container end -->
-</section><!-- Main container end -->
+    </div>]
+  </div>
+</section>
 
 <html>
 <?php
-include 'footer.php';
+include 'pages/footer.php';
 ?>

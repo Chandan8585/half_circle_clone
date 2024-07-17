@@ -1,16 +1,32 @@
 <?php
 include 'pages/header.php';
+include 'admin/config.php';
+$id= 5;
+$stmt = $conn->prepare("SELECT * FROM pages WHERE id = ?");
+$stmt -> bind_param("i", $id);
+$stmt-> execute();
+$result = $stmt->get_result();
 
+if($result->num_rows=== 1 ){
+  $row = $result->fetch_assoc();
+  $jsondata = json_decode($row['slide_content'], true);
+
+  if($jsondata===null){
+    die("Error decoding JSON data");
+  } 
+}else{
+  die("No record found with id=$id");
+}
 ?>
-<div id="banner-area" class="banner-area" style="background-image:url(https://t4.ftcdn.net/jpg/04/03/27/39/360_F_403273952_rzAfeNqfa7jFZCmDoeB2qLKtJYAx23dj.jpg)">
+<div id="banner-area" class="banner-area" style="background-image:url(<?php echo htmlspecialchars($jsondata['banner_images'][0]['url']) ?>)">
   <div class="banner-text">
     <div class="container">
         <div class="row">
           <div class="col-lg-12">
               <div class="banner-heading">
-                <h1 class="banner-title">Our Story</h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb justify-content-center">
+                <h1 class="banner-title"> <?php echo htmlspecialchars($jsondata['paragraphs'][0]['title']) ?>  </h1>
+                <nav aria-label="breadcrumb bg-dark">
+                    <ol class="breadcrumb justify-content-center bg-transparent">
                       <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                  
                       <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
@@ -71,20 +87,11 @@ include 'pages/header.php';
           <div class="post-body">
          
  <h2 class="entry-title">
-                Our Story
+ <?php echo htmlspecialchars($jsondata['paragraphs'][0]['title']) ?>  
               </h2>
             <div class="entry-content">
-              <p>In the last decade social media and digital marketing has grown a lot.</p>
-			  
-			  <p>In fact, we at Half Circles Media Pvt. Ltd. knew the potential of social media and digital marketing even before it was noticed by others. It was November 2015 when we thought of starting up to make our foot prints in this domain. We wanted to be unique and different from others. We knew that we could accomplish a lot from social media if we move in the right direction with the right people. We researched the market, interacted with people and came up with one line determination: “Let’s complete the half circles” scattered across the this space. And that’s when Half Circles Media Pvt. Ltd. came into existence.</p>
-			  
-			    <p>Our founder, Mr. Nikhil Srivastava, has an experience of print and digital journalism for over a decade. He has worked with prominent publishing brands like Hindustan, Dainik Jagran, Dainik Bhaskar, Amar Ujala and Times Internet. His love for technology and social media led to the formation of Half Circles Media Pvt. Ltd.</p>
-			  
-			   <p>We started working with several companies with their social media needs. Soon we got a really big opportunity, our first big project. It was the Social Media Hub, Chief Minister's Office of the biggest state of India, Uttar Pradesh. Our social media service team took the social media accounts of CM Office and Government of Uttar Pradesh to new heights. Half Circles Media Pvt. Ltd. organised various social media campaigns including 'Poshan Maah', 'Dastak' and many more. We bagged various awards for the ‘Best Campaigner on Social Media’. Half CIrcles Media Pvt. Ltd. played a very important role in 2016-2017 assembly elections in Uttar Pradesh. We passed all the tests with flying colours as BJP won elections in Uttar Pradesh. This victory got us responsibilities of the social media accounts of BJP for Uttar Pradesh as well as BJP for Rajasthan.</p>
-			   
-			      <p>It has been a long journey since then. Team of Half Circles Media Pvt. Ltd. has grown a lot and strengthened itself for several big challenges.</p>
-			   
-            </div>
+          <?php echo htmlspecialchars($jsondata['paragraphs'][0]['content']) ?>
+          </div>
 
          
 
@@ -107,5 +114,5 @@ include 'pages/header.php';
 <html>
 <?php
 
-include 'footer.php';
+include 'pages/footer.php';
 ?>
